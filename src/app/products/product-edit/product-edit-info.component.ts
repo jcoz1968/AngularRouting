@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { Product } from '../product';
+import { ProductService } from '../product.service';
 
 @Component({
   templateUrl: './product-edit-info.component.html'
@@ -13,7 +14,7 @@ export class ProductEditInfoComponent implements OnInit {
   errorMessage: string;
   product = { id: 1, productName: 'test', productCode: 'test' };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
