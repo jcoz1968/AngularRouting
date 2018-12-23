@@ -8,8 +8,9 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', component: PageNotFoundComponent }
+      { path: '**', component: PageNotFoundComponent },
     ])
+    // , ]{ enableTracing: true })
   ],
   exports: [RouterModule]
 })
