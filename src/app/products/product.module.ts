@@ -1,3 +1,4 @@
+import { ProductEditGuard } from './product-edit/product-edit.guard';
 import { ProductEditTagsComponent } from './product-edit/product-edit-tags.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -19,6 +20,7 @@ import { AuthGuard } from './../user/auth.guard';
       {
         path: 'products',
         canActivate: [AuthGuard],
+        canDeactivate: [ProductEditGuard],
         children: [
           {
             path: '',
