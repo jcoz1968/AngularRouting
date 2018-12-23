@@ -15,15 +15,14 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
 
   product: Product;
+  private dataIsValid: { [key: string]: boolean } = {};
 
   constructor(
     private productService: ProductService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -65,7 +64,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   saveProduct(): void {
-    if (true === true) {
+    if (this.isValid()) {
       if (this.product.id === 0) {
         this.productService
           .createProduct(this.product)
@@ -97,6 +96,33 @@ export class ProductEditComponent implements OnInit {
       this.messageService.addMessage(message);
     }
     this.router.navigate(['/products']);
-    // Navigate back to the product list
+  }
+
+  isValid(path?: string): boolean {
+    this.validate();
+    if (path) {
+      return this.dataIsValid['path'];
+    }
+    return (this.dataIsValid &&
+      Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+  }
+
+  validate(): void {
+    this.dataIsValid = {};
+    if (
+      this.product.productName &&
+      this.product.productName.length &&
+      this.product.productCode
+    ) {
+      this.dataIsValid['info'] = true;
+    } else {
+      this.dataIsValid['info'] = false;
+    }
+
+    if (this.product.category && this.product.category.length >= 3) {
+      this.dataIsValid['tags'] = true;
+    } else {
+      this.dataIsValid['tags'] = false;
+    }
   }
 }
