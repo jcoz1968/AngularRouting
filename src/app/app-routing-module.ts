@@ -10,7 +10,7 @@ import { AuthGuard } from './user/auth.guard';
       { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
       {
         path: 'products',
-        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
         // canDeactivate: [ProductEditGuard],
         loadChildren: './products/product.module#ProductModule'
       },
