@@ -1,7 +1,7 @@
 import { PageNotFoundComponent } from './page-not-found.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from './user/auth.guard';
 
 @NgModule({
@@ -10,13 +10,13 @@ import { AuthGuard } from './user/auth.guard';
       { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
       {
         path: 'products',
-        canLoad: [AuthGuard],
+        canActivate: [AuthGuard],
         // canDeactivate: [ProductEditGuard],
         loadChildren: './products/product.module#ProductModule'
       },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent },
-    ])
+    ], { preloadingStrategy: PreloadAllModules })
     // , ]{ enableTracing: true })
   ],
   exports: [RouterModule]
