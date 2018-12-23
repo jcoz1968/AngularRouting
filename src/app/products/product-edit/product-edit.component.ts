@@ -32,6 +32,15 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
+  isValid(path?: string): boolean {
+    this.validate();
+    if (path) {
+      return this.dataIsValid[path];
+    }
+    return (this.dataIsValid &&
+      Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
+  }
+
   onProductRetrieved(product: Product): void {
     this.product = product;
 
@@ -96,15 +105,6 @@ export class ProductEditComponent implements OnInit {
       this.messageService.addMessage(message);
     }
     this.router.navigate(['/products']);
-  }
-
-  isValid(path?: string): boolean {
-    this.validate();
-    if (path) {
-      return this.dataIsValid['path'];
-    }
-    return (this.dataIsValid &&
-      Object.keys(this.dataIsValid).every(d => this.dataIsValid[d] === true));
   }
 
   validate(): void {
