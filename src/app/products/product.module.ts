@@ -1,3 +1,4 @@
+import { ProductEditTagsComponent } from './product-edit/product-edit-tags.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -22,7 +23,22 @@ import { SharedModule } from '../shared/shared.module';
       {
         path: 'products/:id/edit',
         component: ProductEditComponent,
-        resolve: { resolvedData: ProductResolver }
+        resolve: { resolvedData: ProductResolver },
+        children: [
+          {
+            path: '',
+            redirectTo: 'info',
+            pathMatch: 'full'
+          },
+          {
+            path: 'info',
+            component: ProductEditInfoComponent
+          },
+          {
+            path: 'tags',
+            component: ProductEditTagsComponent
+          }
+        ]
       },
     ])
   ],
@@ -30,7 +46,8 @@ import { SharedModule } from '../shared/shared.module';
     ProductListComponent,
     ProductDetailComponent,
     ProductEditComponent,
-    ProductEditInfoComponent
+    ProductEditInfoComponent,
+    ProductEditTagsComponent
   ]
 })
 export class ProductModule { }
